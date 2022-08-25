@@ -27,8 +27,8 @@
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"SimpleBatchUploadAlias" : "SimpleBatchUpload.alias.php",
-		"SimpleBatchUploadMagic" : "SimpleBatchUpload.magic.php"
+		"SimpleBatchUploadAlias" : "src/SimpleBatchUpload.alias.php",
+		"SimpleBatchUploadMagic" : "src/SimpleBatchUpload.magic.php"
 	},
 	"AutoloadNamespaces": {
 		"SimpleBatchUpload\\": "src/"
