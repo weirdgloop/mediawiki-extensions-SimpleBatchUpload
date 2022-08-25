@@ -12,12 +12,7 @@
 	"license-name": "GPL-2.0-or-later",
 	"type": "specialpage",
 	"requires": {
-		"MediaWiki": ">=1.31"
-	},
-	"MessagesDirs": {
-		"SimpleBatchUpload": [
-			"i18n"
-		]
+		"MediaWiki": ">=1.38.0"
 	},
 	"config": {
 		"SimpleBatchUploadMaxFilesPerBatch": {
@@ -26,9 +21,68 @@
 			}
 		}
 	},
+	"MessagesDirs": {
+		"SimpleBatchUpload": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"SimpleBatchUploadAlias" : "SimpleBatchUpload.alias.php",
+		"SimpleBatchUploadMagic" : "SimpleBatchUpload.magic.php"
+	},
 	"AutoloadNamespaces": {
 		"SimpleBatchUpload\\": "src/"
 	},
-	"callback": "SimpleBatchUpload\\SimpleBatchUpload::initCallback",
+	"SpecialPages": {
+		"BatchUpload": "SimpleBatchUpload\\SpecialBatchUpload"
+	},
+	"Hooks": {
+		"MakeGlobalVariablesScript": "main",
+		"ParserFirstCallInit": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "SimpleBatchUpload\\SimpleBatchUpload"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "SimpleBatchUpload"
+	},
+	"ResourceModules": {
+		"ext.SimpleBatchUpload.jquery-file-upload": {
+			"dependencies": [
+				"jquery.ui"
+			],
+			"messages": [
+				"simplebatchupload-comment",
+				"simplebatchupload-max-files-alert"
+			],
+			"styles": [
+				"res/jquery.fileupload.css"
+			],
+			"scripts": [
+				"res/jquery.fileupload.js"
+			]
+		},
+		"ext.SimpleBatchUpload": {
+			"dependencies": [
+				"ext.SimpleBatchUpload.jquery-file-upload",
+				"mediawiki.Title",
+				"mediawiki.api",
+				"mediawiki.jqueryMsg"
+			],
+			"messages": [
+				"simplebatchupload-comment",
+				"simplebatchupload-max-files-alert"
+			],
+			"styles": [
+				"res/ext.SimpleBatchUpload.css"
+			],
+			"scripts": [
+				"res/ext.SimpleBatchUpload.js"
+			]
+		}
+	},
 	"manifest_version": 2
 }
