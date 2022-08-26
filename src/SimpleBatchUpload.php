@@ -48,7 +48,7 @@ class SimpleBatchUpload implements
 	 * @param array &$vars
 	 * @param \OutputPage $out
 	 */
-	public function onMakeGlobalVariablesScript( &$vars, $out ) {
+	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
 		global $wgSimpleBatchUploadMaxFilesPerBatch;
 		$vars['simpleBatchUploadMaxFilesPerBatch'] = $wgSimpleBatchUploadMaxFilesPerBatch;
 	}
