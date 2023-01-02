@@ -22,8 +22,7 @@
 
 namespace SimpleBatchUpload;
 
-use MediaWiki\Hook\MakeGlobalVariablesScriptHook;
-use MediaWiki\Hook\ParserFirstCallInitHook;
+use MediaWiki\MediaWikiServices;
 use Parser;
 
 /**
@@ -31,25 +30,25 @@ use Parser;
  *
  * @package SimpleBatchUpload
  */
-class SimpleBatchUpload implements
-	MakeGlobalVariablesScriptHook,
-	ParserFirstCallInitHook
-{
+class SimpleBatchUpload {
 
 	/**
 	 * @param \Parser $parser
+	 *
+	 * @return bool
 	 * @throws \MWException
 	 */
-	public function onParserFirstCallInit( $parser ) {
+	public static function registerParserFunction( &$parser ) {
 		$parser->setFunctionHook( 'batchupload', [ new UploadButtonRenderer(), 'renderParserFunction' ], Parser::SFH_OBJECT_ARGS );
+		return true;
 	}
 
 	/**
 	 * @param array &$vars
 	 * @param \OutputPage $out
 	 */
-	public function onMakeGlobalVariablesScript( &$vars, $out ): void {
-		global $wgSimpleBatchUploadMaxFilesPerBatch;
-		$vars['simpleBatchUploadMaxFilesPerBatch'] = $wgSimpleBatchUploadMaxFilesPerBatch;
+	public static function onMakeGlobalVariablesScript( &$vars, $out ) {
+		$vars['simpleBatchUploadMaxFilesPerBatch'] = MediaWikiServices::getInstance()->getMainConfig()->get( 'SimpleBatchUploadMaxFilesPerBatch' );
 	}
+
 }
